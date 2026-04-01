@@ -46,3 +46,5 @@ app.use(express_flash_notification(app, {
 }))
 
 app.use("/", indexRouter)
+
+export {app, port}

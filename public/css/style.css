@@ -1,1 +1,7 @@
 @import url(reset.css);
+
+main {
+    font-size: 1.2rem;
+    width: 60%;
+    margin-inline: auto;
+}

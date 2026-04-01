@@ -1,0 +1,15 @@
+{% extends "components/layout.njk" %}
+{% block content %}
+
+<h1>Ska vi äta...</h1>
+<h2><em>{{ dish.name }}</em></h2>
+<h3>Tillbehör</h3>
+
+<ul>
+    {% for side in dish.side %}
+        <li>{{ side }}</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

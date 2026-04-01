@@ -5,9 +5,29 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Dishes {
+  id Int @id @default(autoincrement())
+  name String
+  main String
+  side String
+  otherInfo String
+  weekendWorthy WeekendWorthy @default(NO)
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  password String
+}
+
+enum WeekendWorthy {
+  YES
+  NO
 }
