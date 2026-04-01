@@ -1,7 +1,28 @@
 @import url(reset.css);
 
+:root {
+    --skyAqua: #2DC7FF;
+    --cerulean: #0081AF;
+    --freshSky: #00ABE7;
+    --wheat: #EAD2AC;
+    --sunlitClay: #EABA6B;
+}
+
 main {
     font-size: 1.2rem;
     width: 60%;
     margin-inline: auto;
+    line-height: 2rem;
+}
+
+button {
+    padding: 15px;
+    font-size: inherit;
+    background-color: var(--skyAqua);
+    border-radius: 20px;
+    border: 0px;
+}
+
+button:hover {
+    cursor: pointer;
 }

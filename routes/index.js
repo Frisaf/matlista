@@ -13,8 +13,9 @@ router.get("/", async (req, res) => {
     }})
     const index = Math.floor(Math.random() * food.length)
     const randomDish = food[index]
+    const sides = randomDish.side.split(", ")
 
-    res.render("index.njk", {title: "Matlista", dish: randomDish})
+    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides})
 })
 
 export default router

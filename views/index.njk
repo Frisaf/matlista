@@ -4,12 +4,23 @@
 <h1>Ska vi äta...</h1>
 <h2><em>{{ dish.name }}</em></h2>
 <h3>Tillbehör</h3>
-
 <ul>
-    {% for side in dish.side %}
+    {% for side in sides %}
         <li>{{ side }}</li>
     {% endfor %}
 </ul>
+{% if dish.otherInfo %}
+    <h3>Övrig info</h3>
+    <p>{{ dish.otherInfo }}</p>
+{% endif %}
 
+{% if dish.weekendWorthy == "YES" %}
+    <p>Den här rätten är helgvärdig.</p>
+
+{% else %}
+    <p>Den här rätten är <strong>inte</strong> helgvärdig.</p>
+{% endif %}
+
+<button>Ny rätt</button>
 
 {% endblock %}
