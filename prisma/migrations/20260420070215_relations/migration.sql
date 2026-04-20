@@ -1,0 +1,15 @@
+-- AlterTable
+ALTER TABLE "Dishes" ADD COLUMN     "mainId" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "sideId" INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "Main" ALTER COLUMN "ingredient" SET DEFAULT '';
+
+-- AlterTable
+ALTER TABLE "Side" ALTER COLUMN "ingredient" SET DEFAULT '';
+
+-- AddForeignKey
+ALTER TABLE "Dishes" ADD CONSTRAINT "Dishes_mainId_fkey" FOREIGN KEY ("mainId") REFERENCES "Main"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Dishes" ADD CONSTRAINT "Dishes_sideId_fkey" FOREIGN KEY ("sideId") REFERENCES "Side"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

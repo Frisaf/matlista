@@ -13,18 +13,32 @@ datasource db {
 }
 
 model Dishes {
-  id Int @id @default(autoincrement())
-  name String
-  main String
-  side String
-  otherInfo String
+  id            Int           @id @default(autoincrement())
+  name          String
+  main          Main          @relation(fields: [mainId], references: [id])
+  mainId        Int           @default(0)
+  side          Side          @relation(fields: [sideId], references: [id])
+  sideId        Int           @default(0)
+  otherInfo     String
   weekendWorthy WeekendWorthy @default(NO)
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
+  id       Int    @id @default(autoincrement())
+  name     String
   password String
+}
+
+model Side {
+  id         Int      @id @default(autoincrement())
+  ingredient String   @default("")
+  dish       Dishes[]
+}
+
+model Main {
+  id         Int      @id @default(autoincrement())
+  ingredient String   @default("")
+  dish       Dishes[]
 }
 
 enum WeekendWorthy {
