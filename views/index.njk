@@ -3,15 +3,30 @@
 
 <h1>Ska vi äta...</h1>
 <h2><em>{{ dish.name }}</em></h2>
+<p>Huvudingrediens: {{ main }}</p>
+{% if sides != "None" %}
 <h3>Tillbehör</h3>
-<ul>
-    {% for side in sides %}
-        <li>{{ side }}</li>
-    {% endfor %}
-</ul>
-{% if dish.otherInfo %}
+    {% if sides | is_string %}
+        <p>{{ sides }}</p>
+    {% else %}
+        <ul>
+            {% for side in sides %}
+                <li>{{ side }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}
+{% if otherInfo != "" %}
     <h3>Övrig info</h3>
-    <p>{{ dish.otherInfo }}</p>
+    {% if otherInfo | is_string %}
+        <p>{{ dish.otherInfo }}</p>
+    {% else %}
+        <ul>
+            {% for info in otherInfo %}
+                <li>{{ info }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endif %}
 
 {% if dish.weekendWorthy == "YES" %}

@@ -12,7 +12,7 @@ const app = express()
 const port = 3000 || process.env.port
 const isProduction = process.env.NODE_ENV === "production"
 
-nunjucks.configure("views", {
+const env = nunjucks.configure("views", {
     autoescape: true,
     express: app
 })
@@ -46,5 +46,9 @@ app.use(express_flash_notification(app, {
 }))
 
 app.use("/", indexRouter)
+
+env.addFilter("is_string", function(obj) {
+    return typeof obj == "string"
+})
 
 export {app, port}
