@@ -6,36 +6,29 @@
 <p>Huvudingrediens: {{ main }}</p>
 {% if sides != "None" %}
 <h3>Tillbehör</h3>
-    {% if sides | is_string %}
-        <p>{{ sides }}</p>
-    {% else %}
-        <ul>
-            {% for side in sides %}
-                <li>{{ side }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+<ul>
+    {% for side in sides %}
+        <li>{{ side }}</li>
+    {% endfor %}
+</ul>
 {% endif %}
 {% if otherInfo != "" %}
     <h3>Övrig info</h3>
-    {% if otherInfo | is_string %}
-        <p>{{ dish.otherInfo }}</p>
-    {% else %}
-        <ul>
-            {% for info in otherInfo %}
-                <li>{{ info }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <ul>
+        {% for info in otherInfo %}
+            <li>{{ info }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 {% if dish.weekendWorthy == "YES" %}
     <p>Den här rätten är helgvärdig.</p>
-
 {% else %}
     <p>Den här rätten är <strong>inte</strong> helgvärdig.</p>
 {% endif %}
 
-<button>Ny rätt</button>
+<button onclick="reloadPage()">Ny rätt</button>
+
+<script src="scripts/reroll.js"></script>
 
 {% endblock %}

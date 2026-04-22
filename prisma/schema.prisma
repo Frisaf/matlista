@@ -31,13 +31,13 @@ model User {
 
 model Side {
   id         Int      @id @default(autoincrement())
-  ingredient String   @default("")
+  side String   @default("")
   dish       Dishes[]
 }
 
 model Main {
   id         Int      @id @default(autoincrement())
-  ingredient String   @default("")
+  main String   @default("")
   dish       Dishes[]
 }
 

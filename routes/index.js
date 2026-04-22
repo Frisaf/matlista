@@ -4,52 +4,43 @@ import prisma from "../config/db.js"
 const router = express.Router()
 
 router.get("/", async (req, res) => {
-    const dish = await prisma.dishes.findMany()
-    const i = Math.floor(Math.random() * dish.length)
-    const randomDish = dish[i]
-    const result = await prisma.dishes.findMany({where: {name: randomDish.name}})
+    const dishes = await prisma.dishes.findMany({
+        select: {
+            name: true,
+            otherInfo: true,
+            weekendWorthy: true,
+            side: {
+                select: {
+                    side: true
+                }
+            },
+            main: {
+                select: {
+                    main: true
+                }
+            }
+        }
+    })
 
-    let sides, otherInfo
+    const i = Math.floor(Math.random() * dishes.length)
+    const randomDish = dishes[i]
+    const dishName = randomDish.name
+    const allSelectedDishes = dishes.filter(dish => dish.name === dishName)
 
-    console.log(result)
+    const sides = []
+    let otherInfo = []
 
-    // if (result.length > 1) {
-        sides = []
-        otherInfo = []
+    allSelectedDishes.forEach(dish => {
+        sides.push(dish.side.side)
+        otherInfo.push(dish.otherInfo)
+    })
 
-        result.forEach(async(dish) => {
-            const side = await prisma.side.findUnique({where: {
-                id: dish.sideId
-            }})
+    const main = randomDish.main.main
 
-            console.log({side})
+    otherInfo = otherInfo.filter((item, index) => otherInfo.indexOf(item) === index)
 
-            sides.push(side.ingredient)
-            otherInfo.push(dish.otherInfo)
-            console.log(sides, otherInfo)
-        })
-    // }
+    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo})
 
-    // else {
-    //     sides = await prisma.side.findUnique({where: {
-    //         id: result[0].sideId
-    //     }})
-
-    //     sides = sides.ingredient
-    //     otherInfo = result[0].otherInfo
-    // }
-
-    const main = await prisma.main.findUnique({where: {
-        id: result[0].mainId
-    }})
-
-    const main_ingredient = main.ingredient
-
-    if (typeof otherInfo != "string") otherInfo = otherInfo.filter((item, index) => otherInfo.indexOf(item) === index)
-
-    console.log("s" + main_ingredient, sides, otherInfo)
-
-    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main_ingredient, otherInfo: otherInfo})
 })
 
 export default router
