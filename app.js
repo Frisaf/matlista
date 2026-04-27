@@ -7,6 +7,7 @@ import express_flash_notification from "express-flash-notification"
 import cookieParser from "cookie-parser"
 
 import indexRouter from "./routes/index.js"
+import dishesRouter from "./routes/dishes.js"
 
 const app = express()
 const port = 3000 || process.env.port
@@ -46,6 +47,7 @@ app.use(express_flash_notification(app, {
 }))
 
 app.use("/", indexRouter)
+app.use("/dishes", dishesRouter)
 
 env.addFilter("is_string", function(obj) {
     return typeof obj == "string"

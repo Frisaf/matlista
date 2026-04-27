@@ -1,0 +1,26 @@
+{% extends "components/layout.njk" %}
+{% block content %}
+
+<h2>Alla maträtter</h2>
+<table>
+    <tr>
+        <th><strong>Namn</strong></th>
+        <th><strong>Huvudingrediens</strong></th>
+        <th><strong>Tillbehör</strong></th>
+        <th><strong>Övrig info</strong></th>
+        <th><strong>Helgvärdig</strong></th>
+    </tr>
+
+    {% for dish in dishes %}
+        <tr>
+            <th>{{ dish.name }}</th>
+            <th>{{ dish.main.main }}</th>
+            <th>{{ dish.side.side }}</th>
+            <th>{{ dish.otherInfo }}</th>
+            <th>{{ dish.weekendWorthy }}</th>
+        </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
