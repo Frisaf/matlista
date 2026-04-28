@@ -69,11 +69,35 @@ nav {
     svg:hover {
         cursor: pointer;
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.inTextLink {
+    color: inherit;
+}
+
+@counter-style food-counter {
+    system: cyclic;
+    symbols: "\1F374";
+    suffix: " ";
+}
+
+.dishList {
+    line-height: 4rem;
+    list-style-type: food-counter;
 }
 
 
 @media only screen and (max-width: 1000px) {
     nav .sidebar {
         width: 90%;
+    }
+
+    main {
+        width: 84%;
     }
 }

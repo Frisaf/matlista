@@ -1,17 +1,18 @@
 {% extends "components/layout.njk" %}
 {% block content %}
 
-<h1>Ska vi äta...</h1>
-<h2><em>{{ dish.name }}</em></h2>
+<h2>{{ dish.name }}</h2>
 <p>Huvudingrediens: {{ main }}</p>
+
 {% if sides != "None" %}
-<h3>Tillbehör</h3>
-<ul>
-    {% for side in sides %}
-        <li>{{ side }}</li>
-    {% endfor %}
-</ul>
+    <h3>Tillbehör</h3>
+    <ul>
+        {% for side in sides %}
+            <li>{{ side }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
+
 {% if otherInfo != "" %}
     <h3>Övrig info</h3>
     <ul>
@@ -26,7 +27,4 @@
 {% else %}
     <p>Den här rätten är <strong>inte</strong> helgvärdig.</p>
 {% endif %}
-
-<button onclick="reloadPage()">Ny rätt</button>
-
 {% endblock %}

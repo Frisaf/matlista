@@ -2,25 +2,12 @@
 {% block content %}
 
 <h2>Alla maträtter</h2>
-<table>
-    <tr>
-        <th><strong>Namn</strong></th>
-        <th><strong>Huvudingrediens</strong></th>
-        <th><strong>Tillbehör</strong></th>
-        <th><strong>Övrig info</strong></th>
-        <th><strong>Helgvärdig</strong></th>
-    </tr>
-
+<p>Klicka på maträtten för mer information.</p>
+<hr>
+<ul class="dishList">
     {% for dish in dishes %}
-        <tr>
-            <th>{{ dish.name }}</th>
-            <th>{{ dish.main.main }}</th>
-            <th>{{ dish.side.side }}</th>
-            <th>{{ dish.otherInfo }}</th>
-            <th>{{ dish.weekendWorthy }}</th>
-        </tr>
+        <li><a href="/dishes/{{ dish.id }}" class="inTextLink">{{ dish.name }} ({{ dish.side.side }})</a></li>
     {% endfor %}
-
-</table>
+</ul>
 
 {% endblock %}
