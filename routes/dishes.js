@@ -118,4 +118,44 @@ router.get("/regular", async(req, res) => {
     res.render("dishes.njk", {dishes: dishes, title: "Vardagsmat"})
 })
 
+router.get("/add", (req, res) => {
+    res.render("add_dish.njk")
+})
+
+router.post(
+    "/add",
+    body("name").trim().notEmpty().withMessage("Måltidens namn får inte vara tomt"),
+    body("main").trim().notEmpty().withMessage("Huvudingrediensen kan inte vara tom"),
+    body("side").trim().withMessage("Något gick fel"),
+    body("otherInfo").trim().withMessage("Något gick fel"),
+    async(req, res, next) => {
+        const errors = validationResult(error)
+        
+        if (!errors.isEmpty()) {
+            return req.flash("error", errors.array()[0].msg, "/dishes/add")
+        }
+
+        const name = req.body.name
+        const main = req.body.main
+        const side = req.body.side ? req.body.side : "None"
+        const otherInfo = req.body.otherInfo ? req.body.otherInfo : ""
+
+        try {
+            const is_duplicate = await prisma.dishes.findMany({
+                where: {
+                    name: name,
+                    main: main,
+                    side: side
+                },
+                select: {
+                    name: true
+                }
+            })
+
+            if (is_duplicate[0]) {
+                return req.flash("error", "Den här måltiden finns redan", "/dishes/add")
+            }
+        }
+})
+
 export default router
