@@ -1,0 +1,17 @@
+{% extends "components/layout.njk" %}
+{% block content %}
+
+<h2>{{ title }}</h2>
+<p>Klicka på maträtten för mer information.</p>
+<hr>
+<ul class="dishList">
+    {% for dish in dishes %}
+        {% if dish.side.side != "None" %}
+            <li><a href="/dishes/info/{{ dish.id }}" class="inTextLink">{{ dish.name }} ({{ dish.side.side }})</a></li>
+        {% else %}
+            <li><a href="/dishes/info/{{ dish.id }}" class="inTextLink">{{ dish.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}

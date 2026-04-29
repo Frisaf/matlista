@@ -17,10 +17,10 @@ router.get("/all", async(req, res) => {
         }
     })
 
-    res.render("all_dishes.njk", {dishes: dishes})
+    res.render("dishes.njk", {dishes: dishes, title: "Alla maträtter"})
 })
 
-router.get("/:id", param("id").isInt().withMessage("Dish ID has to be an integer"), async(req, res, next) => {
+router.get("/info/:id", param("id").isInt().withMessage("Dish ID has to be an integer"), async(req, res, next) => {
     try {
         const errors = validationResult(req)
 
@@ -78,6 +78,44 @@ router.get("/:id", param("id").isInt().withMessage("Dish ID has to be an integer
     } catch (err) {
         next(err)
     }
+})
+
+router.get("/weekend", async(req, res) => {
+    const dishes = await prisma.dishes.findMany({
+        where: {
+            weekendWorthy: "YES"
+        },
+        select: {
+            id: true,
+            name: true,
+            side: {
+                select: {
+                    side: true
+                }
+            }
+        }
+    })
+
+    res.render("dishes.njk", {dishes: dishes, title: "Helgmat"})
+})
+
+router.get("/regular", async(req, res) => {
+    const dishes = await prisma.dishes.findMany({
+        where: {
+            weekendWorthy: "NO"
+        },
+        select: {
+            id: true,
+            name: true,
+            side: {
+                select: {
+                    side: true
+                }
+            }
+        }
+    })
+
+    res.render("dishes.njk", {dishes: dishes, title: "Vardagsmat"})
 })
 
 export default router
