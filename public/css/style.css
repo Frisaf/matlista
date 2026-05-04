@@ -27,6 +27,10 @@ button:hover, #submitDish:hover {
     cursor: pointer;
 }
 
+button.dangerButton {
+    background-color: red;
+}
+
 nav {
     .navItems {
         background-color: var(--sunlitClay);
