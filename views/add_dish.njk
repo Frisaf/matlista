@@ -4,18 +4,18 @@
 <h2>Lägg till en maträtt</h2>
 <p>Skriv in information om rätten här nedan för att lägga till den i matlistan!</p>
 <hr>
-<form action="/dish/add" method="post" class="addDishForm">
+<form action="/dishes/add" method="post" class="addDishForm">
     <label for="name">Rättens namn</label>
-    <input id="name" name="name">
+    <input id="name" name="name" required>
     <label for="main">Huvudingrediens</label>
-    <input id="main" name="main">
+    <input id="main" name="main" required>
     <label for="side">Tillbehör</label>
-    <input id="side" name="side">
+    <input id="side" name="side" required>
     <span>Är rätten helgvärdig?</span>
     <div class="weekendWorthy">
-        <input id="yes" name="weekendWorthy" type="radio" value="yes">
+        <input id="yes" name="weekendWorthy" type="radio" value="YES" required>
         <label for="yes">Ja</label>
-        <input id="no" name="weekendWorthy" type="radio" value="no">
+        <input id="no" name="weekendWorthy" type="radio" value="NO" required>
         <label for="no">Nej</label>
     </div>
     <label for="otherInfo">Övrig information</label>

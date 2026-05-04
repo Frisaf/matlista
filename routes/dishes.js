@@ -126,10 +126,11 @@ router.post(
     "/add",
     body("name").trim().notEmpty().withMessage("Måltidens namn får inte vara tomt"),
     body("main").trim().notEmpty().withMessage("Huvudingrediensen kan inte vara tom"),
-    body("side").trim().withMessage("Något gick fel"),
-    body("otherInfo").trim().withMessage("Något gick fel"),
+    body("side").trim(),
+    body("otherInfo").trim(),
+    body("weekendWorthy").trim(),
     async(req, res, next) => {
-        const errors = validationResult(error)
+        const errors = validationResult(req)
         
         if (!errors.isEmpty()) {
             return req.flash("error", errors.array()[0].msg, "/dishes/add")
@@ -139,13 +140,22 @@ router.post(
         const main = req.body.main
         const side = req.body.side ? req.body.side : "None"
         const otherInfo = req.body.otherInfo ? req.body.otherInfo : ""
+        const weekendWorthy = req.body.weekendWorthy
 
         try {
             const is_duplicate = await prisma.dishes.findMany({
                 where: {
                     name: name,
-                    main: main,
-                    side: side
+                    main: {
+                        is: {
+                            main: main
+                        }
+                    },
+                    side: {
+                        is: {
+                            side: side
+                        }
+                    }
                 },
                 select: {
                     name: true
@@ -155,6 +165,53 @@ router.post(
             if (is_duplicate[0]) {
                 return req.flash("error", "Den här måltiden finns redan", "/dishes/add")
             }
+
+            let mainId = await prisma.main.findMany({
+                select: {
+                    id: true
+                },
+                where: {
+                    main: main
+                }
+            })
+            let sideId = await prisma.side.findMany({
+                select: {
+                    id: true
+                },
+                where: {
+                    side: side
+                }
+            })
+
+            console.log(mainId, sideId)
+
+            if (mainId.length === 0) {
+                mainId = await prisma.main.create({
+                    data: {
+                        main: main
+                    }
+                })
+            } else if (sideId.length === 0) {
+                mainId = await prisma.side.create({
+                    data: {
+                        side: side
+                    }
+                })
+            }
+
+            const newDish = await prisma.dishes.create({
+                data: {
+                    name: name,
+                    mainId: mainId.id,
+                    sideId: sideId.id,
+                    otherInfo: otherInfo,
+                    weekendWorthy: weekendWorthy
+                }
+            })
+
+            res.redirect("/")
+        } catch (err) {
+            next(err)
         }
 })
 
