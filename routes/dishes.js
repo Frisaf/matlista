@@ -183,8 +183,6 @@ router.post(
                 }
             })
 
-            console.log(mainId, sideId)
-
             if (mainId.length === 0) {
                 mainId = await prisma.main.create({
                     data: {
@@ -199,11 +197,13 @@ router.post(
                 })
             }
 
+            console.log(mainId, sideId)
+
             const newDish = await prisma.dishes.create({
                 data: {
                     name: name,
-                    mainId: mainId.id,
-                    sideId: sideId.id,
+                    mainId: mainId[0].id,
+                    sideId: sideId[0].id,
                     otherInfo: otherInfo,
                     weekendWorthy: weekendWorthy
                 }
