@@ -1,0 +1,35 @@
+{% extends "components/layout.njk" %}
+{% block content %}
+
+<h2>Redigera {{ dish.name }}</h2>
+
+<form action="/dishes/edit/{{ dish.id }}" method="post" class="dishForm">
+    <label for="name">Rättens namn</label>
+    <input id="name" name="name" required value="{{ dish.name }}">
+    <label for="main">Huvudingrediens</label>
+    <input id="main" name="main" required value="{{ dish.main.main }}">
+    <label for="side">Tillbehör</label>
+    <input id="side" name="side" required value="{{ dish.side.side }}">
+    <span>Är rätten helgvärdig?</span>
+    <div class="weekendWorthy">
+        {% if dish.weekendWorthy == "YES" %}
+            <input id="yes" name="weekendWorthy" type="radio" value="YES" required checked>
+        {% else %}
+            <input id="yes" name="weekendWorthy" type="radio" value="YES" required>
+        {% endif %}
+        <label for="yes">Ja</label>
+        {% if dish.weekendWorthy == "NO" %}
+            <input id="no" name="weekendWorthy" type="radio" value="NO" required checked>
+        {% else %}
+            <input id="no" name="weekendWorthy" type="radio" value="NO" required>
+        {% endif %}
+        <label for="no">Nej</label>
+    </div>
+    <label for="otherInfo">Övrig information</label>
+    <textarea id="otherInfo" name="otherInfo" rows="5">{{ dish.otherInfo }}</textarea>
+    <input type="submit" value="Skicka" class="submitDish">
+</form>
+
+</form>
+
+{% endblock %}

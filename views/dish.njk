@@ -28,7 +28,7 @@
     <p>Den här rätten är <strong>inte</strong> helgvärdig.</p>
 {% endif %}
 
-<button>Redigera rätt</button>
+<button onclick="editDish('{{ dish.id }}')">Redigera rätt</button>
 <button class="dangerButton" onclick="removeDish('{{ dish.id }}')">Ta bort rätt</button>
 
 <script src="/scripts/dish.js"></script>

@@ -15,7 +15,7 @@ main {
     line-height: 2rem;
 }
 
-button, #submitDish {
+button, .submitDish {
     padding: 15px;
     font-size: inherit;
     background-color: var(--skyAqua);
@@ -23,7 +23,7 @@ button, #submitDish {
     border: 0px;
 }
 
-button:hover, #submitDish:hover {
+button:hover, .submitDish:hover {
     cursor: pointer;
 }
 
@@ -80,7 +80,7 @@ nav {
     }
 }
 
-.addDishForm {
+.dishForm {
     display: flex;
     flex-direction: column;
     line-height: 3rem;
@@ -89,6 +89,10 @@ nav {
         height: 2rem;
         font-size: 1rem;
         font-family: inherit;
+    }
+
+    input.submitDish {
+        height: fit-content;
     }
 
     textarea {
@@ -130,7 +134,7 @@ nav {
   display: flex;
 }
 
-#submitDish {
+.submitDish {
     height: fit-content;
     width: fit-content;
     justify-self: start;

@@ -5,3 +5,7 @@ function removeDish(id) {
         window.location.replace(`/dishes/delete/${id}`)
     }
 }
+
+function editDish(id) {
+    window.location.replace(`/dishes/edit/${id}`)
+}
