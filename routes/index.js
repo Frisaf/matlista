@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
 
     otherInfo = otherInfo.filter((item, index) => otherInfo.indexOf(item) === index)
 
-    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo})
+    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated})
 
 })
 

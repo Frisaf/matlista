@@ -28,8 +28,10 @@
     <p>Den här rätten är <strong>inte</strong> helgvärdig.</p>
 {% endif %}
 
-<button onclick="editDish('{{ dish.id }}')">Redigera rätt</button>
-<button class="dangerButton" onclick="removeDish('{{ dish.id }}')">Ta bort rätt</button>
+{% if logged_in %}
+    <button onclick="editDish('{{ dish.id }}')">Redigera rätt</button>
+    <button class="dangerButton" onclick="removeDish('{{ dish.id }}')">Ta bort rätt</button>
+{% endif %}
 
 <script src="/scripts/dish.js"></script>
 {% endblock %}

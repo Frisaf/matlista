@@ -4,6 +4,7 @@
 <h2>Lägg till en maträtt</h2>
 <p>Skriv in information om rätten här nedan för att lägga till den i matlistan!</p>
 <hr>
+{{ flash | safe }}
 <form action="/dishes/add" method="post" class="dishForm">
     <label for="name">Rättens namn</label>
     <input id="name" name="name" required>

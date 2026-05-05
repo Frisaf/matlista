@@ -11,6 +11,11 @@
             <li><a href="/dishes/weekend">Helgmat</a></li>
             <li><a href="/dishes/regular">Vardagsmat</a></li>
             <li><a href="/dishes/add">Lägg till rätt</a></li>
+            {% if logged_in %}
+                <li><a href="/user/logout">Logga ut</a></li>
+            {% else %}
+                <li><a href="/user/login">Logga in</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>

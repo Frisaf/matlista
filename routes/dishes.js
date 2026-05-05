@@ -17,7 +17,7 @@ router.get("/all", async(req, res) => {
         }
     })
 
-    res.render("dishes.njk", {dishes: dishes, title: "Alla maträtter"})
+    res.render("dishes.njk", {dishes: dishes, title: "Alla maträtter", logged_in: req.session.authenticated})
 })
 
 router.get("/info/:id", param("id").isInt().withMessage("Dish ID has to be an integer"), async(req, res, next) => {
@@ -75,7 +75,7 @@ router.get("/info/:id", param("id").isInt().withMessage("Dish ID has to be an in
 
         otherInfo = otherInfo.filter((item, index) => otherInfo.indexOf(item) === index)
 
-        res.render("dish.njk", {dish: dish, sides: sides, otherInfo: otherInfo, main: main})
+        res.render("dish.njk", {dish: dish, sides: sides, otherInfo: otherInfo, main: main, logged_in: req.session.authenticated})
     } catch (err) {
         next(err)
     }
@@ -97,7 +97,7 @@ router.get("/weekend", async(req, res) => {
         }
     })
 
-    res.render("dishes.njk", {dishes: dishes, title: "Helgmat"})
+    res.render("dishes.njk", {dishes: dishes, title: "Helgmat", logged_in: req.session.authenticated})
 })
 
 router.get("/regular", async(req, res) => {
@@ -116,11 +116,11 @@ router.get("/regular", async(req, res) => {
         }
     })
 
-    res.render("dishes.njk", {dishes: dishes, title: "Vardagsmat"})
+    res.render("dishes.njk", {dishes: dishes, title: "Vardagsmat", logged_in: req.session.authenticated})
 })
 
 router.get("/add", (req, res) => {
-    res.render("add_dish.njk")
+    res.render("add_dish.njk", {logged_in: req.session.authenticated})
 })
 
 router.post(
@@ -135,6 +135,10 @@ router.post(
         
         if (!errors.isEmpty()) {
             return req.flash("error", errors.array()[0].msg, "/dishes/add")
+        }
+
+        if (!req.session.authenticated) {
+            return req.flash("info", "Du måste vara inloggad för att göra detta!")
         }
 
         const name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1)
@@ -222,6 +226,10 @@ router.get("/delete/:id", param("id").isInt().withMessage("Dish ID has to be an 
             return res.status(400).json({errors: errors.array()})
         }
 
+        if (!req.session.authenticated) {
+            return req.flash("info", "Du måste vara inloggad för att göra detta!", "/")
+        }
+
         const id = Number(req.params.id)
         const dish = await prisma.dishes.findUnique({
             select: {
@@ -280,7 +288,7 @@ router.get("/edit/:id", param("id").isInt().withMessage("Dish ID has to be an in
 
         console.log(dish)
 
-        res.render("edit_dish.njk", {dish: dish})
+        res.render("edit_dish.njk", {dish: dish, logged_in: req.session.authenticated})
     } catch (err) {
         next(err)
     }
@@ -299,6 +307,10 @@ router.post(
         
         if (!errors.isEmpty()) {
             return req.flash("error", errors.array()[0].msg, "/dishes/add")
+        }
+
+        if (!req.session.authenticated) {
+            return req.flash("info", "Du måste vara inloggad för att göra detta!")
         }
 
         const name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1)

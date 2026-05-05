@@ -32,6 +32,8 @@ button.dangerButton {
 }
 
 nav {
+    margin-bottom: 50px;
+
     .navItems {
         background-color: var(--sunlitClay);
         height: 30%;
@@ -132,6 +134,14 @@ nav {
   gap: 1rem;
   border-radius: 10px;
   display: flex;
+}
+
+.alertError {
+    background-color: red;
+}
+
+.alertInfo {
+    background-color: var(--freshSky);
 }
 
 .submitDish {

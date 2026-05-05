@@ -1,6 +1,7 @@
 {% extends "components/layout.njk" %}
 {% block content %}
 
+{{ flash | safe }}
 <h1>Ska vi äta...</h1>
 <h2><em>{{ dish.name }}</em></h2>
 <p>Huvudingrediens: {{ main }}</p>

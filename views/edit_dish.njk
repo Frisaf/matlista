@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Redigera {{ dish.name }}</h2>
-
+{{ flash | safe }}
 <form action="/dishes/edit/{{ dish.id }}" method="post" class="dishForm">
     <label for="name">Rättens namn</label>
     <input id="name" name="name" required value="{{ dish.name }}">

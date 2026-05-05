@@ -1,0 +1,14 @@
+{% extends "components/layout.njk" %}
+{% block content %}
+
+<h2>Logga in</h2>
+{{ flash | safe }}
+<form action="/user/login" method="post" class="dishForm">
+    <label for="username">Användarnamn</label>
+    <input id="username" name="username" required>
+    <label for="password">Lösenord</label>
+    <input id="password" name="password" required autocomplete="off">
+    <input type="submit" value="Logga in" class="submitDish">
+</form>
+
+{% endblock %}
