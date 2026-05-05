@@ -82,6 +82,21 @@ nav {
     }
 }
 
+footer {
+    background-color: var(--sunlitClay);
+    height: 20%;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+
+    a {
+        color: inherit
+    }
+}
+
 .dishForm {
     display: flex;
     flex-direction: column;
