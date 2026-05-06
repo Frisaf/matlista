@@ -38,8 +38,19 @@ router.get("/", async (req, res) => {
     const main = randomDish.main.main
 
     otherInfo = otherInfo.filter((item, index) => otherInfo.indexOf(item) === index)
+    
+    const allSides = await prisma.side.findMany({
+        select: {
+            side: true
+        }
+    })
+    const allMains = await prisma.main.findMany({
+        select: {
+            main: true
+        }
+    })
 
-    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated})
+    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated, allSides: allSides, allMains: allMains})
 
 })
 

@@ -118,6 +118,39 @@ footer {
     }
 }
 
+.filterForm {
+    display: flex;
+    flex-direction: column;
+
+    input {
+        width: fit-content;
+    }
+
+    label {
+        width: fit-content;
+    }
+}
+
+.filters {
+    background-color: var(--sunlitClay);
+    padding: 20px;
+    z-index: 1;
+    width: 25%;
+    position: fixed;
+    left: 0;
+    top: 1rem;
+    overflow: auto;
+    height: 90%;
+    max-height: 90%;
+    padding-bottom: 20px;
+    filter: drop-shadow(0 0 0.75rem var(--cerulean));
+    display: none;
+    
+    svg {
+        justify-self: end;
+    }
+}
+
 .weekendWorthy {
     display: flex;
     align-items: center;
@@ -174,5 +207,9 @@ footer {
 
     main {
         width: 84%;
+    }
+
+    .filters {
+        width: 90%;
     }
 }
