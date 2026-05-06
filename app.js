@@ -21,6 +21,7 @@ const env = nunjucks.configure("views", {
 
 app.set("view engine", "njk")
 app.set("views", "./views")
+app.set("trust proxy", 1)
 
 app.use(morgan("dev"))
 app.use(express.urlencoded({extended: false}))
