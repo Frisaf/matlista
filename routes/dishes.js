@@ -367,7 +367,9 @@ router.post(
                         main: main
                     }
                 })
-            } else if (sideId.length === 0) {
+            }
+            
+            if (sideId.length === 0) {
                 sideId = await prisma.side.create({
                     data: {
                         side: side
