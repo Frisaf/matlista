@@ -13,5 +13,6 @@ function closeFilters() {
 }
 
 function filterDishes() {
-    console.log("filters :D")
+    mainFilters = document.getElementsByClassName("mainFilter")
+    sideFilters = document.getElementsByClassName("sideFilter")
 }

@@ -4,6 +4,8 @@ import prisma from "../config/db.js"
 const router = express.Router()
 
 router.get("/", async (req, res) => {
+    const filters = req.query.q
+    console.log(filters)
     const dishes = await prisma.dishes.findMany({
         select: {
             name: true,
@@ -50,7 +52,7 @@ router.get("/", async (req, res) => {
         }
     })
 
-    res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated, allSides: allSides, allMains: allMains})
+    return res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated, allSides: allSides, allMains: allMains})
 
 })
 
