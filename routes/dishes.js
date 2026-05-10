@@ -286,8 +286,6 @@ router.get("/edit/:id", param("id").isInt().withMessage("Dish ID has to be an in
             }
         })
 
-        console.log(dish)
-
         res.render("edit_dish.njk", {dish: dish, logged_in: req.session.authenticated})
     } catch (err) {
         next(err)
@@ -321,6 +319,14 @@ router.post(
         const id = Number(req.params.id)
 
         try {
+            const dish_to_edit = await prisma.dishes.findUnique({
+                where: {
+                    id: id
+                },
+                select: {
+                    id: true
+                }
+            })
             const is_duplicate = await prisma.dishes.findMany({
                 where: {
                     name: name,
@@ -336,12 +342,13 @@ router.post(
                     }
                 },
                 select: {
-                    name: true
+                    name: true,
+                    id: true
                 }
             })
 
-            if (is_duplicate[0]) {
-                return req.flash("error", "Den här måltiden finns redan", "/dishes/add")
+            if (is_duplicate[0] && dish_to_edit.id != is_duplicate[0].id) {
+                return req.flash("error", "Den här måltiden finns redan", `/dishes/edit/${id}`)
             }
 
             let mainId = await prisma.main.findMany({
