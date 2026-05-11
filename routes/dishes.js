@@ -14,6 +14,9 @@ router.get("/all", async(req, res) => {
                     side: true
                 }
             }
+        },
+        orderBy: {
+            name: "asc"
         }
     })
 
@@ -94,6 +97,9 @@ router.get("/weekend", async(req, res) => {
                     side: true
                 }
             }
+        },
+        orderBy: {
+            name: "asc"
         }
     })
 
@@ -113,6 +119,9 @@ router.get("/regular", async(req, res) => {
                     side: true
                 }
             }
+        },      
+        orderBy: {
+            name: "asc"
         }
     })
 
