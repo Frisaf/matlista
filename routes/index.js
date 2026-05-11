@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
         })
 
         filters.forEach(item => {
-            console.log(item)
             if (sidesList.includes(item)) {
                 sideFilters.push(item)
             } else {
