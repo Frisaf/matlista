@@ -4,9 +4,30 @@ import prisma from "../config/db.js"
 const router = express.Router()
 
 router.get("/", async (req, res) => {
-    const filters = req.query.q
-    console.log(filters)
-    const dishes = await prisma.dishes.findMany({
+    const filters = Object.keys(req.query)
+
+    let sidesList = []
+    let sideFilters = []
+    let mainFilters = []
+    
+    if (filters) {
+        const sides = await prisma.side.findMany({select: {side: true}})
+
+        sides.forEach(side => {
+            sidesList.push(side.side)
+        })
+
+        filters.forEach(item => {
+            console.log(item)
+            if (sidesList.includes(item)) {
+                sideFilters.push(item)
+            } else {
+                mainFilters.push(item)
+            }
+        })
+    }
+
+    let dishes = await prisma.dishes.findMany({
         select: {
             name: true,
             otherInfo: true,
@@ -23,6 +44,18 @@ router.get("/", async (req, res) => {
             }
         }
     })
+
+    let filtered_dishes
+
+    if (sideFilters[0]) {
+        filtered_dishes = dishes.filter(dish => sideFilters.includes(dish.side.side))
+    } else if (mainFilters[0]) {
+        filtered_dishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
+    } else if (sideFilters[0] && mainFilters[0]) {
+        filtered_dishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
+    }
+
+    if (filtered_dishes) dishes = filtered_dishes
 
     const i = Math.floor(Math.random() * dishes.length)
     const randomDish = dishes[i]
@@ -52,7 +85,7 @@ router.get("/", async (req, res) => {
         }
     })
 
-    return res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated, allSides: allSides, allMains: allMains})
+    return res.render("index.njk", {title: "Matlista", dish: randomDish, sides: sides, main: main, otherInfo: otherInfo, logged_in: req.session.authenticated, allSides: allSides, allMains: allMains, filters: filters})
 
 })
 

@@ -11,8 +11,3 @@ function showFilters() {
 function closeFilters() {
     filters.style.display = "none"
 }
-
-function filterDishes() {
-    mainFilters = document.getElementsByClassName("mainFilter")
-    sideFilters = document.getElementsByClassName("sideFilter")
-}
