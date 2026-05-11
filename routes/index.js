@@ -47,15 +47,19 @@ router.get("/", async (req, res) => {
 
     let filtered_dishes
 
-    if (sideFilters[0]) {
-        filtered_dishes = dishes.filter(dish => sideFilters.includes(dish.side.side))
-    } else if (mainFilters[0]) {
-        filtered_dishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
-    } else if (sideFilters[0] && mainFilters[0]) {
-        filtered_dishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
-    }
+    try {
+        if (sideFilters[0] && !mainFilters[0]) {
+            filtered_dishes = dishes.filter(dish => sideFilters.includes(dish.side.side))
+        } else if (mainFilters[0] && !sideFilters[0]) {
+            filtered_dishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
+        } else if (sideFilters[0] && mainFilters[0]) {
+            filtered_dishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
+        }
 
-    if (filtered_dishes) dishes = filtered_dishes
+        if (filtered_dishes) dishes = filtered_dishes
+    } catch {
+        return req.flash("error", "Ingen rätt med dessa filter kunde hittas", "/")
+    }
 
     const i = Math.floor(Math.random() * dishes.length)
     const randomDish = dishes[i]
