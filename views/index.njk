@@ -36,8 +36,14 @@
 <div class="filters">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000" onclick="closeFilters()"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
     <h3>Filter</h3>
-    <p>Välj de ingredienser du vill filtrera efter.</p>
+    <p>Välj de ingredienser eller kriterier du vill filtrera efter.</p>
     <form class="filterForm">
+        <div class="weekendWorthy">
+            <input name="weekendWorthy" type="radio" value="YES" id="yes">
+            <label for="yes">Helgvärdig</label>
+            <input name="weekendWorthy" type="radio" value="NO" id="no">
+            <label for="no">Inte helgvärdig</label>
+        </div>
         <h4>Huvudingredienser</h4>
         {% for main in allMains %}
             <div>
