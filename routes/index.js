@@ -60,14 +60,12 @@ router.get("/", async (req, res) => {
 
         if (weekendFilter != undefined) {
             if (filteredDishes != undefined) {
-                console.log("boom")
                 if (weekendFilter === true) {
                     filteredDishes = filteredDishes.filter(dish => dish.weekendWorthy === "YES")
                 } else {
                     filteredDishes = filteredDishes.filter(dish => dish.weekendWorthy === "NO")
                 }
             } else {
-                console.log("THIS IS A MESSAGE")
                 if (weekendFilter === true) {
                     filteredDishes = dishes.filter(dish => dish.weekendWorthy === "YES")
                 } else {
