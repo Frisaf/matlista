@@ -218,10 +218,13 @@ router.post(
                     sideId: sideId[0].id,
                     otherInfo: otherInfo,
                     weekendWorthy: weekendWorthy
+                },
+                select: {
+                    id: true
                 }
             })
 
-            res.redirect("/")
+            res.redirect(`/dishes/info/${newDish.id}`)
         } catch (err) {
             next(err)
         }
@@ -250,14 +253,19 @@ router.get("/delete/:id", param("id").isInt().withMessage("Dish ID has to be an 
         })
 
         if (dish) {
-            await prisma.dishes.delete({
+            const toDelete = await prisma.dishes.delete({
                 where: {
                     id: dish.id
+                },
+                select: {
+                    name: true
                 }
             })
-        }
 
-        res.redirect("/")
+            return req.flash("info", `Tog bort ${toDelete.name} från matlistan`, "/")
+        } else {
+            return req.flash("error", "Något gick fel", "/")
+        }
     } catch (err) {
         next(err)
     }
