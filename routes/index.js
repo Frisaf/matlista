@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
     let sidesList = []
     let sideFilters = []
     let mainFilters = []
+    let weekendFilter
     
     if (filters) {
         const sides = await prisma.side.findMany({select: {side: true}})
@@ -20,6 +21,8 @@ router.get("/", async (req, res) => {
         filters.forEach(item => {
             if (sidesList.includes(item)) {
                 sideFilters.push(item)
+            } else if (item === "weekendWorthy") {
+                weekendFilter = true ? req.query.weekendWorthy === "YES" : false
             } else {
                 mainFilters.push(item)
             }
@@ -44,19 +47,37 @@ router.get("/", async (req, res) => {
         }
     })
 
-    let filtered_dishes
+    let filteredDishes
 
     try {
         if (sideFilters[0] && !mainFilters[0]) {
-            filtered_dishes = dishes.filter(dish => sideFilters.includes(dish.side.side))
+            filteredDishes = dishes.filter(dish => sideFilters.includes(dish.side.side))
         } else if (mainFilters[0] && !sideFilters[0]) {
-            filtered_dishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
+            filteredDishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
         } else if (sideFilters[0] && mainFilters[0]) {
-            filtered_dishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
+            filteredDishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
         }
 
-        if (filtered_dishes) dishes = filtered_dishes
-    } catch {
+        if (weekendFilter != undefined) {
+            if (filteredDishes != undefined) {
+                console.log("boom")
+                if (weekendFilter === true) {
+                    filteredDishes = filteredDishes.filter(dish => dish.weekendWorthy === "YES")
+                } else {
+                    filteredDishes = filteredDishes.filter(dish => dish.weekendWorthy === "NO")
+                }
+            } else {
+                console.log("THIS IS A MESSAGE")
+                if (weekendFilter === true) {
+                    filteredDishes = dishes.filter(dish => dish.weekendWorthy === "YES")
+                } else {
+                    filteredDishes = dishes.filter(dish => dish.weekendWorthy === "NO")
+                }
+            }
+        }
+
+        if (filteredDishes) dishes = filteredDishes
+    } catch (error) {
         return req.flash("error", "Ingen rätt med dessa filter kunde hittas", "/")
     }
 
