@@ -69,4 +69,9 @@ env.addFilter("is_string", function(obj) {
     return typeof obj == "string"
 })
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).render("500.njk", {error: process.env.NODE_ENV === "development" ? err.nessage : ""})
+})
+
 export {app, port}
