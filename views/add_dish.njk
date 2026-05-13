@@ -7,11 +7,11 @@
 {{ flash | safe }}
 <form action="/dishes/add" method="post" class="dishForm">
     <label for="name">Rättens namn</label>
-    <input id="name" name="name" required>
+    <input id="name" name="name" required maxlength="150">
     <label for="main">Huvudingrediens</label>
-    <input id="main" name="main" required>
+    <input id="main" name="main" required maxlength="150">
     <label for="side">Tillbehör</label>
-    <input id="side" name="side" required>
+    <input id="side" name="side" required maxlength="150">
     <span>Är rätten helgvärdig?</span>
     <div class="weekendWorthy">
         <input id="yes" name="weekendWorthy" type="radio" value="YES" required>
@@ -20,7 +20,7 @@
         <label for="no">Nej</label>
     </div>
     <label for="otherInfo">Övrig information</label>
-    <textarea id="otherInfo" name="otherInfo" rows="5"></textarea>
+    <textarea id="otherInfo" name="otherInfo" rows="5" maxlength="150"></textarea>
     <input type="submit" value="Lägg till" class="submitDish">
 </form>
 
