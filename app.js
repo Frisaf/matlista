@@ -2,7 +2,7 @@ import "dotenv/config"
 import express from "express"
 import nunjucks from "nunjucks"
 import morgan from "morgan"
-import session from "express-session"
+import session from "cookie-session"
 import express_flash_notification from "express-flash-notification"
 import cookieParser from "cookie-parser"
 
