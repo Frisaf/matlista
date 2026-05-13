@@ -54,8 +54,13 @@ router.post(
 )
 
 router.get("/logout", (req, res) => {
-    req.session.authenticated = false
-    req.flash("info", "Du har loggat ut", "/")
+    if (!req.session.authenticated) {
+        res.render("error.njk")
+    } else {
+        req.session.destroy()
+        req.flash("info", "Du har loggat ut", "/")
+    }
+    
 })
 
 export default router
