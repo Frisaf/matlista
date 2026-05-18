@@ -152,9 +152,19 @@ router.post(
 
         const name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1)
         const main = req.body.main.charAt(0).toUpperCase() + req.body.main.slice(1)
-        const side = req.body.side.charAt(0).toUpperCase() + req.body.side.slice(1) ? req.body.side : "None"
+
+        let side = req.body.side
+
+        if (side) {
+            side = side.charAt(0).toUpperCase() + req.body.side.slice(1)
+        } else {
+            side = "None"
+        }
+
         const otherInfo = req.body.otherInfo ? req.body.otherInfo : ""
         const weekendWorthy = req.body.weekendWorthy
+
+        console.log(main, req.body.side.charAt(0).toUpperCase() + req.body.side.slice(1))
 
         try {
             const is_duplicate = await prisma.dishes.findMany({
@@ -334,7 +344,14 @@ router.post(
 
         const name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1)
         const main = req.body.main.charAt(0).toUpperCase() + req.body.main.slice(1)
-        const side = req.body.side.charAt(0).toUpperCase() + req.body.side.slice(1) ? req.body.side : "None"
+        
+        let side = req.body.side
+
+        if (side) {
+            side = side.charAt(0).toUpperCase() + req.body.side.slice(1)
+        } else {
+            side = "None"
+        }
         const otherInfo = req.body.otherInfo ? req.body.otherInfo : ""
         const weekendWorthy = req.body.weekendWorthy
         const id = Number(req.params.id)
