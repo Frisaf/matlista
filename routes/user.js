@@ -2,7 +2,6 @@ import express from "express"
 import prisma from "../config/db.js"
 import { body, param, validationResult} from "express-validator"
 import bcrypt from "bcrypt"
-import session from "cookie-session"
 
 const router = express.Router()
 
