@@ -166,7 +166,7 @@ footer {
 
 @counter-style food-counter {
     system: cyclic;
-    symbols: "\1F374";
+    symbols: "\1F373";
     suffix: " ";
 }
 
