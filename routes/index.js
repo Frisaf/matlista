@@ -99,11 +99,17 @@ router.get("/", async (req, res) => {
     const allSides = await prisma.side.findMany({
         select: {
             side: true
+        },
+        orderBy: {
+            side: "asc"
         }
     })
     const allMains = await prisma.main.findMany({
         select: {
             main: true
+        },
+        orderBy: {
+            main: "asc"
         }
     })
 

@@ -38,26 +38,31 @@
     <h3>Filter</h3>
     <p>Välj de ingredienser eller kriterier du vill filtrera efter.</p>
     <form class="filterForm">
-        <div class="weekendWorthy">
+        <fieldset class="weekendWorthy">
+            <legend><h4>Helgvärdighet</h4></legend>
             <input name="weekendWorthy" type="radio" value="YES" id="yes">
             <label for="yes">Helgvärdig</label>
             <input name="weekendWorthy" type="radio" value="NO" id="no">
             <label for="no">Inte helgvärdig</label>
-        </div>
-        <h4>Huvudingredienser</h4>
-        {% for main in allMains %}
-            <div>
-                <input name="{{ main.main }}" type="checkbox" class="mainFilter">
-                <label for="{{ main.main }}">{{ main.main }}</label>
-            </div>
-        {% endfor %}
-        <h4>Tillbehör</h4>
-        {% for side in allSides %}
-            <div>
-                <input name="{{ side.side }}" type="checkbox" class="sideFilter">
-                <label for="{{ side.side }}">{{ side.side }}</label>
-            </div>
-        {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend><h4>Huvudingredienser</h4></legend>
+            {% for main in allMains %}
+                <div>
+                    <input name="{{ main.main }}" type="checkbox" class="mainFilter" id="{{ main.main }}">
+                    <label for="{{ main.main }}">{{ main.main }}</label>
+                </div>
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend><h4>Tillbehör</h4></legend>
+            {% for side in allSides %}
+                <div>
+                    <input name="{{ side.side }}" type="checkbox" class="sideFilter" id="{{ side.side }}">
+                    <label for="{{ side.side }}">{{ side.side }}</label>
+                </div>
+            {% endfor %}
+        </fieldset>
         <input type="submit" value="Ny rätt med filter" class="submitDish">
     </form>
     <p></p>
