@@ -412,6 +412,7 @@ router.post(
                         main: main
                     }
                 })
+                mainId = Array(mainId)
             }
             
             if (sideId.length === 0) {
@@ -420,6 +421,7 @@ router.post(
                         side: side
                     }
                 })
+                sideId = Array(sideID)
             }
 
             await prisma.dishes.update({
