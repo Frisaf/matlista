@@ -56,7 +56,7 @@ router.get("/logout", (req, res) => {
     if (!req.session.authenticated) {
         res.render("error.njk")
     } else {
-        req.session.destroy()
+        req.session = null
         res.redirect("/")
     }
 })
