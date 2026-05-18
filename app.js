@@ -71,7 +71,7 @@ env.addFilter("is_string", function(obj) {
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
-    res.status(500).render("error.njk", {error: process.env.NODE_ENV === "development" ? err.nessage : ""})
+    res.status(500).render("error.njk", {error: process.env.NODE_ENV === "development" ? err.nessage : "", logged_in: req.session.authenticated})
 })
 
 export {app, port}

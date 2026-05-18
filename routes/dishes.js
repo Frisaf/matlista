@@ -203,12 +203,16 @@ router.post(
                         main: main
                     }
                 })
-            } else if (sideId.length === 0) {
+                mainId = Array(mainId)
+            }
+
+            if (sideId.length === 0) {
                 sideId = await prisma.side.create({
                     data: {
                         side: side
                     }
                 })
+                sideId = Array(sideId)
             }
 
             const newDish = await prisma.dishes.create({
