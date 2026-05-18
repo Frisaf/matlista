@@ -55,7 +55,7 @@ router.get("/", async (req, res) => {
         } else if (mainFilters[0] && !sideFilters[0]) {
             filteredDishes = dishes.filter(dish => mainFilters.includes(dish.main.main))
         } else if (sideFilters[0] && mainFilters[0]) {
-            filteredDishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) && mainFilters.includes(dish.main.main))
+            filteredDishes = dishes.filter(dishes => sideFilters.includes(dishes.side.side) || mainFilters.includes(dishes.main.main))
         }
 
         if (weekendFilter != undefined) {

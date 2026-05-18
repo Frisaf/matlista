@@ -421,7 +421,7 @@ router.post(
                         side: side
                     }
                 })
-                sideId = Array(sideID)
+                sideId = Array(sideId)
             }
 
             await prisma.dishes.update({
