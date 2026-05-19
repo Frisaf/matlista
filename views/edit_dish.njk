@@ -2,26 +2,28 @@
 {% block content %}
 
 <h2>Redigera {{ dish.name }}</h2>
+<p>* - obligatorisk</p>
+<hr>
 {{ flash | safe }}
 <form action="/dishes/edit/{{ dish.id }}" method="post" class="dishForm">
-    <label for="name">Rättens namn</label>
-    <input id="name" name="name" required value="{{ dish.name }}" maxlength="150">
-    <label for="main">Huvudingrediens</label>
-    <input id="main" name="main" required value="{{ dish.main.main }}" maxlength="150">
+    <label for="name">Rättens namn *</label>
+    <input id="name" name="name" required value="{{ dish.name }}" maxlength="150" oninvalid="invalidInput(this)" onchange="invalidInput(this)">
+    <label for="main">Huvudingrediens *</label>
+    <input id="main" name="main" required value="{{ dish.main.main }}" maxlength="150" oninvalid="invalidInput(this)" onchange="invalidInput(this)">
     <label for="side">Tillbehör</label>
     <input id="side" name="side" required value="{{ dish.side.side }}" maxlength="150">
-    <span>Är rätten helgvärdig?</span>
+    <span>Är rätten helgvärdig? *</span>
     <div class="weekendWorthy">
         {% if dish.weekendWorthy == "YES" %}
-            <input id="yes" name="weekendWorthy" type="radio" value="YES" required checked>
+            <input id="yes" name="weekendWorthy" type="radio" value="YES" required checked oninvalid="invalidInput(this)" onchange="invalidInput(this)">
         {% else %}
-            <input id="yes" name="weekendWorthy" type="radio" value="YES" required>
+            <input id="yes" name="weekendWorthy" type="radio" value="YES" required oninvalid="invalidInput(this)" onchange="invalidInput(this)">
         {% endif %}
         <label for="yes">Ja</label>
         {% if dish.weekendWorthy == "NO" %}
-            <input id="no" name="weekendWorthy" type="radio" value="NO" required checked>
+            <input id="no" name="weekendWorthy" type="radio" value="NO" required checked oninvalid="invalidInput(this)" onchange="invalidInput(this)">
         {% else %}
-            <input id="no" name="weekendWorthy" type="radio" value="NO" required>
+            <input id="no" name="weekendWorthy" type="radio" value="NO" required oninvalid="invalidInput(this)" onchange="invalidInput(this)">
         {% endif %}
         <label for="no">Nej</label>
     </div>
@@ -30,6 +32,6 @@
     <input type="submit" value="Redigera" class="submitDish">
 </form>
 
-</form>
+<script src="/scripts/dish.js"></script>
 
 {% endblock %}

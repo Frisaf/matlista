@@ -9,3 +9,15 @@ function removeDish(id) {
 function editDish(id) {
     window.location.replace(`/dishes/edit/${id}`)
 }
+
+function invalidInput(textbox) {
+    if (textbox.value === "") {
+        textbox.style.border = "3px solid red"
+        textbox.setCustomValidity("Vänligen fyll i det här fältet")
+    } else {
+        textbox.style.border = "unset"
+        textbox.setCustomValidity("")
+    }
+
+    return true
+}

@@ -12,14 +12,15 @@ main {
     font-size: 1.2rem;
     width: 60%;
     margin-inline: auto;
-    line-height: 2rem;
+    line-height: 1.6;
+    overflow-wrap: break-word;
 }
 
 button, .submitDish {
-    padding: 15px;
+    padding: 0.4em 0.8em;
     font-size: inherit;
     background-color: var(--skyAqua);
-    border-radius: 20px;
+    border-radius: 8px;
     border: 0px;
 }
 
